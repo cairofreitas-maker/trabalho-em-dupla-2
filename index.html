@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Tabuada</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    
+    <div class="card">
+        <h1>Tabuada</h1>
+        <p class="instrucao">Digite um número abaixo para ver a sua tabuada de 1 a 10.</p>
+        
+        <div class="calculadora-box">
+            <input type="number" id="numero-input" placeholder="Ex: 5">
+        </div>
+
+        <button id="btn-gerar">Gerar Tabuada</button>
+
+        <div id="resultado-container">
+            <p class="placeholder-text"> Resultado </p>
+        </div>
+
+        <hr>
+
+    <button onclick="window.location.href='soma.html'">
+        Proxima Pagina de Calculo
+    </button>
+    </div>
+
+    <script>
+        const numeroInput = document.getElementById('numero-input');
+        const btnGerar = document.getElementById('btn-gerar');
+        const resultadoContainer = document.getElementById('resultado-container');
+        const btnProximo = document.getElementById('btn-proximo');
+
+        btnGerar.addEventListener('click', function() {
+            const numero = parseFloat(numeroInput.value);
+
+            resultadoContainer.innerHTML = '';
+
+            if (isNaN(numero)) {
+                resultadoContainer.innerHTML = '<p class="erro">Por favor, digite um número válido!</p>';
+                return;
+            }
+
+            for (let i = 1; i <= 10; i++) {
+                const resultadoConta = numero * i;
+
+                const linha = document.createElement('p');
+                linha.className = 'linha-tabuada';
+                linha.innerHTML = `<strong>${numero}</strong> &times; ${i} = <strong>${resultadoConta}</strong>`;
+                
+                resultadoContainer.appendChild(linha);
+            }
+        });
+
+        btnProximo.addEventListener('click', function() {
+            window.location.href = 'proxima-pagina.html';
+        });
+    </script>
+</body>
+</html>
