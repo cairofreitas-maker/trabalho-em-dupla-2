@@ -1,75 +1,56 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+        box-sizing: border-box;
+    }
+    body{
+        font-family: Arial, sans-serif;
+        background: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    background: linear-gradient(135deg, #4facfe, #00f2fe);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+    .container{
+        background: white;
+        padding: 25px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        width: 350px;
+        text-align: center;
+    }
 
-.container {
-    width: 400px;
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-    text-align: center;
-}
+    h1{
+        color: #333;
+    }
 
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
+    input{
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
 
-input {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    font-size: 16px;
-    margin-bottom: 15px;
-    outline: none;
-}
+    button{
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
 
-input:focus {
-    border-color: #4facfe;
-}
+    button:hover{
+        background: #0056b3;
+    }
 
-button {
-    width: 100%;
-    padding: 12px;
-    background-color: #4facfe;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-}
+    #resultado{
+        margin-top: 20px;
+        text-align: left;
+    }
 
-button:hover {
-    background-color: #2f8ef7;
-}
-
-#resultado {
-    margin-top: 20px;
-    text-align: left;
-}
-
-.linha {
-    padding: 8px;
-    margin-bottom: 5px;
-    border-radius: 5px;
-    background-color: #f5f5f5;
-    border-left: 4px solid #4facfe;
-}
-
-.linha:hover {
-    background-color: #e8f4ff;
-}
+    .linha{
+        padding: 5px;
+        border-bottom: 1px solid #eee;
+    }
