@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divisão Inteligente - Funcional</title>
+    <style>
+        /* --- DESIGN (CSS) --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --bg-principal: #f3f4f6;
+            --bg-card: #ffffff;
+            --texto-escuro: #1f2937;
+            --texto-suave: #4b5563;
+            --azul-primario: #2563eb;
+            --azul-hover: #1d4ed8;
+            --azul-claro: #eff6ff;
+            --borda: #e5e7eb;
+            --verde-sucesso: #059669;
+            --verde-claro: #ecfdf5;
+        }
+
+        body {
+            background-color: var(--bg-principal);
+            color: var(--texto-escuro);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background-color: var(--bg-card);
+            text-align: center;
+            padding: 40px 20px;
+            border-bottom: 1px solid var(--borda);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .main-header h1 {
+            color: var(--azul-primario);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .main-header p {
+            color: var(--texto-suave);
+            font-size: 1.05rem;
+        }
+
+        .main-container {
+            max-width: 1000px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+            flex: 1;
+        }
+
+        .app-card {
+            background-color: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--borda);
+            padding: 30px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+        }
+
+        .card-header h2 {
+            font-size: 1.4rem;
+        }
+
+        .card-description {
+            font-size: 0.95rem;
+            color: var(--texto-suave);
+            margin-bottom: 24px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px 14px;
+            font-size: 1rem;
+            border: 1px solid var(--borda);
+            border-radius: 8px;
+            outline: none;
+            transition: all 0.2s ease;
+        }
+
+        select:focus, input:focus {
+            border-color: var(--azul-primario);
+            box-shadow: 0 0 0 3px rgba(37, 99, 213, 0.15);
+        }
+
+        .tabuada-display {
+            background-color: var(--bg-principal);
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: auto;
+        }
+
+        .tabuada-display h3 {
+            text-align: center;
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--azul-primario);
+        }
+
+        .tabuada-item {
+            font-size: 1.05rem;
+            padding: 8px 0;
+            text-align: center;
+            border-bottom: 1px dashed var(--borda);
+            color: var(--texto-suave);
+        }
+
+        .tabuada-item:last-child {
+            border-bottom: none;
+        }
+
+        .resultado-destaque {
+            font-weight: 700;
+            color: var(--azul-primario);
+        }
+
+        .calc-form {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .input-field {
+            flex: 1;
+        }
+
+        .calc-operator {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--azul-primario);
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--azul-primario);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--azul-hover);
+        }
+
+        .calc-resultado {
+            margin-top: 24px;
+            padding: 20px;
+            background-color: var(--verde-claro);
+            border: 1px solid #a7f3d0;
+            border-radius: 8px;
+        }
+
+        .calc-resultado h3 {
+            color: var(--verde-sucesso);
+            font-size: 1rem;
+            margin-bottom: 12px;
+        }
+
+        .result-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .result-box {
+            background-color: white;
+            padding: 12px;
+            border-radius: 6px;
+            text-align: center;
+            border: 1px solid #d1fae5;
+        }
+
+        .result-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--texto-suave);
+            margin-bottom: 4px;
+        }
+
+        .result-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--verde-sucesso);
+        }
+
+        .result-message {
+            margin-top: 12px;
+            font-size: 0.85rem;
+            text-align: center;
+            color: var(--verde-sucesso);
+            font-style: italic;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .main-footer {
+            text-align: center;
+            padding: 24px;
+            background-color: var(--bg-card);
+            color: var(--texto-suave);
+            border-top: 1px solid var(--borda);
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="main-header">
+        <h1>Divisão Inteligente</h1>
+        <p>Aprenda, pratique e consulte tabuadas de forma simples e elegante.</p>
+    </header>
+
+    <main class="main-container">
+        
+        <section class="app-card">
+            <div class="card-header">
+                <span class="card-icon">📊</span>
+                <h2>Tabuada Escolar</h2>
+            </div>
+            <p class="card-description">Escolha um número para visualizar a tabuada com divisões exatas.</p>
+            
+            <div style="margin-bottom: 20px;">
+                <label for="select-numero">Visualizar tabuada do:</label>
+                <select id="select-numero" onchange="atualizarTabuada()">
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10" selected>10</option>
+                </select>
+            </div>
+
+            <div class="tabuada-display">
+                <h3 id="tabuada-titulo">Tabuada do 10</h3>
+                <div id="tabuada-linhas" class="tabuada-linhas"></div>
+            </div>
+        </section>
+
+        <section class="app-card">
+            <div class="card-header">
+                <span class="card-icon">🧮</span>
+                <h2>Calculadora com Resto</h2>
+            </div>
+            <p class="card-description">Insira qualquer valor para descobrir o resultado e o resto da divisão.</p>
+
+            <div class="calc-form">
+                <div class="input-field">
+                    <label for="dividendo">Dividendo</label>
+                    <input type="number" id="dividendo" placeholder="Ex: 27" min="0">
+                </div>
+                
+                <div class="calc-operator">÷</div>
+
+                <div class="input-field">
+                    <label for="divisor">Divisor</label>
+                    <input type="number" id="divisor" placeholder="Ex: 4" min="1">
+                </div>
+            </div>
+
+            <button onclick="calcularDivisao()" class="btn-primary">Calcular</button>
+
+            <div id="calc-resultado" class="calc-resultado hidden">
+                <h3>Resultado da Operação</h3>
+                <div class="result-grid">
+                    <div class="result-box">
+                        <span class="result-label">Quociente (Resultado)</span>
+                        <span id="res-quociente" class="result-value">0</span>
+                    </div>
+                    <div class="result-box">
+                        <span class="result-label">Resto da Divisão</span>
+                        <span id="res-resto" class="result-value">0</span>
+                    </div>
+                </div>
+                <p id="res-mensagem" class="result-message"></p>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="main-footer">
+        <p>&copy; 2026 - Hub de Matemática Prática</p>
+    </footer>
+
+    <script>
+        function atualizarTabuada() {
+            const divisor = parseInt(document.getElementById('select-numero').value);
+            const containerLinhas = document.getElementById('tabuada-linhas');
+            const titulo = document.getElementById('tabuada-titulo');
+
+            titulo.innerText = `Tabuada de Divisão do ${divisor}`;
+            containerLinhas.innerHTML = ''; 
+
+            for (let i = 1; i <= 10; i++) {
+                let dividendo = i * divisor;
+                let resultado = dividendo / divisor;
+
+                const divItem = document.createElement('div');
+                divItem.className = 'tabuada-item';
+                divItem.innerHTML = `${dividendo} ÷ ${divisor} = <span class="resultado-destaque">${resultado}</span>`;
+                
+                containerLinhas.appendChild(divItem);
+            }
+        }
+
+        function calcularDivisao() {
+            const dividendo = parseInt(document.getElementById('dividendo').value);
+            const divisor = parseInt(document.getElementById('divisor').value);
+            const painelResultado = document.getElementById('calc-resultado');
+
+            if (isNaN(dividendo) || isNaN(divisor)) {
+                alert("Por favor, preencha todos os campos numéricos.");
+                return;
+            }
+
+            if (divisor === 0) {
+                alert("Não é possível dividir por zero!");
+                return;
+            }
+
+            const quociente = Math.floor(dividendo / divisor);
+            const resto = dividendo % divisor;
+
+            document.getElementById('res-quociente').innerText = quociente;
+            document.getElementById('res-resto').innerText = resto;
+
+            const campoMensagem = document.getElementById('res-mensagem');
+            if (resto === 0) {
+                campoMensagem.innerText = `A divisão de ${dividendo} por ${divisor} é exata.`;
+            } else {
+                campoMensagem.innerText = `Divisão inexata. Sobraram ${resto} unidades de resto.`;
+            }
+
+            painelResultado.classList.remove('hidden');
+        }
+
+        // Executa assim que a página abre
+        window.onload = atualizarTabuada;
+    </script>
+</body>
+</html>
