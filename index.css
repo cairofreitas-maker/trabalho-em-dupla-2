@@ -1,0 +1,120 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+
+.card {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
+
+h1 {
+    color: #2c3e50;
+    margin-top: 0;
+}
+
+.instrucao {
+    color: #7f8c8d;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+}
+
+
+.calculadora-box {
+    margin-bottom: 15px;
+}
+
+input[type="number"] {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.5rem;
+    text-align: center;
+    border: 2px solid #bdc3c7;
+    border-radius: 8px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+}
+
+input[type="number"]:focus {
+    border-color: #3498db;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    font-size: 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+#resultado-container {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.placeholder-text {
+    color: #95a5a6;
+    font-style: italic;
+    margin: 10px 0;
+}
+
+.linha-tabuada {
+    font-size: 1.2rem;
+    color: #34495e;
+    margin: 8px 0;
+    padding: 6px;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.linha-tabuada:last-child {
+    border-bottom: none;
+}
+
+.erro {
+    color: #e67e22;
+    font-weight: bold;
+    margin: 0;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background: #e0e0e0;
+    margin: 25px 0 20px 0;
+}
+
+.btn-avancar {
+    background-color: #2ecc71;
+}
+
+.btn-avancar:hover {
+    background-color: #27ae60;
+}
